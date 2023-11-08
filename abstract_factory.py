@@ -15,26 +15,26 @@ class AbstractFactory(ABC):
         pass
 
 
-class ConcreteFactory1(AbstractFactory):
+class ConcreteFactory_HoraSolicitud(AbstractFactory):
     
 
-    def create_product_a(self) -> AbstractModa:
-        return ConcreteProductA1()
+    def moda(self) -> AbstractModa:
+        return ConcreteFactory_HoraSolicitud(self.datos)
 
-    def create_product_b(self) -> AbstractModa:
-        return ConcreteProductB1()
+    def media(self) -> AbstractMedia:
+        return ConcreteFactory_HoraSolicitud(self.datos)
 
 
-class ConcreteFactory2(AbstractFactory):
+class ConcreteFactory_Mes(AbstractFactory):
     """
     Each Concrete Factory has a corresponding product variant.
     """
 
-    def create_product_a(self) -> AbstractProductA:
-        return ConcreteProductA2()
+    def moda(self) -> AbstractModa:
+        return  ConcreteFactory_Mes(self.datos)
 
-    def create_product_b(self) -> AbstractProductB:
-        return ConcreteProductB2()
+    def media(self) ->  AbstractMedia:
+        return  ConcreteFactory_Mes(self.datos)
 
 
 class AbstractProductA(ABC):
