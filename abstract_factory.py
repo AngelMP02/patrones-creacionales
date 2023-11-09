@@ -90,20 +90,7 @@ class AbstractMedia(ABC):
     the same concrete variant.
     """
     @abstractmethod
-    def useful_function_b(self) -> None:
-        """
-        Product B is able to do its own thing...
-        """
-        pass
-
-    @abstractmethod
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> None:
-        """
-        ...but it also can collaborate with the ProductA.
-
-        The Abstract Factory makes sure that all products it creates are of the
-        same variant and thus, compatible.
-        """
+    def calcular(self):
         pass
 
 
@@ -113,35 +100,26 @@ Concrete Products are created by corresponding Concrete Factories.
 
 
 class ConcreteMedia_HoraSolicitud(AbstractMedia):
+    
     def __init__(self, datos):
             self.datos = datos
+    def calcular(self):
+        return self.datos['Hora Solicitud'].mean()
 
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
-        result = collaborator.useful_function_a()
-        return f"The result of the B1 collaborating with the ({result})"
+    
 
 
 class ConcreteMedia_Mes(AbstractMedia):
     def __init__(self, datos):
             self.datos = datos
-
-    def another_useful_function_b(self, collaborator: AbstractProductA):
-        """
-        The variant, Product B2, is only able to work correctly with the
-        variant, Product A2. Nevertheless, it accepts any instance of
-        AbstractProductA as an argument.
-        """
-        result = collaborator.useful_function_a()
-        return f"The result of the B2 collaborating with the ({result})"
+    def calcular(self):
+        return self.datos['Mes'].mean()
 
 class ConcreteMedia_HoraIntervencion(AbstractMedia):
     def __init__(self, datos):
             self.datos = datos
-
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
-        result = collaborator.useful_function_a()
-        return f"The result of the B1 collaborating with the ({result})"
-
+    def calcular(self):
+        return self.datos['Hora Intervencion'].mode()
 
 def client_code_mode(factory: AbstractFactory) -> None:
     """
