@@ -1,3 +1,5 @@
+#Define la clase Pizza que representa la estructura básica de una pizza con sus propiedades.
+
 class Pizza:
     def __init__(self):
         self.tipo_masa = ""

@@ -1,3 +1,5 @@
+#Aquí se instancia el PizzaDeliziosoBuilder, se utiliza el DirectorPizza para construir una pizza y se guarda la pizza en un archivo CSV utilizando PizzaCSVWriter.
+
 from pizza_deliciosa_builder import PizzaDeliziosoBuilder
 from director_pizza import DirectorPizza
 from csv_writer import PizzaCSVWriter

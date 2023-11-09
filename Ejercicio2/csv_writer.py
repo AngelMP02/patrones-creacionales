@@ -1,3 +1,4 @@
+#Contiene la clase PizzaCSVWriter que se encarga de escribir detalles de las pizzas en un archivo CSV.
 import csv
 
 class PizzaCSVWriter:
