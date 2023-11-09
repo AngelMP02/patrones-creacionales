@@ -13,42 +13,51 @@ class AbstractFactory(ABC):
     another.
     """
     @abstractmethod
-    def create_product_a(self) -> AbstractModa:
+    def moda(self) -> AbstractModa:
         pass
 
     @abstractmethod
-    def create_product_b(self) -> AbstractMedia:
+    def media(self) -> AbstractMedia:
         pass
 
 
 class ConcreteFactory_HoraSolicitud(AbstractFactory):
+    def __init__(self, data):
+        # Inicializa la clase con los datos proporcionados
+        self.data = data
 
     def moda(self) -> AbstractModa:
-        return ConcreteModa_HoraSolicitud(self.datos)
+        return ConcreteModa_HoraSolicitud(data)
 
     def media(self) -> AbstractMedia:
-        return ConcreteMedia_HoraSolicitud(self.datos)
+        return ConcreteMedia_HoraSolicitud(data)
 
 
 class ConcreteFactory_Mes(AbstractFactory):
     """
     Each Concrete Factory has a corresponding product variant.
     """
+    def __init__(self, data):
+        # Inicializa la clase con los datos proporcionados
+        self.data = data
 
     def moda(self) -> AbstractModa:
-        return ConcreteModa_Mes(self.datos)
+        return ConcreteModa_Mes(data)
 
     def media(self) -> AbstractMedia:
-        return ConcreteMedia_Mes(self.datos)
+        return ConcreteMedia_Mes(data)
 
 class ConcreteFactory_HoraIntervencion(AbstractFactory):
+    def __init__(self, data):
+        # Inicializa la clase con los datos proporcionados
+        self.data = data
   
 
     def moda(self) -> AbstractModa:
-        return ConcreteModa_HoraIntervencion(self.datos)
+        return ConcreteModa_HoraIntervencion(data)
 
     def media(self) -> AbstractMedia:
-        return ConcreteMedia_HoraIntervencion(self.datos)
+        return ConcreteMedia_HoraIntervencion(data)
 
 
 class AbstractModa(ABC):
@@ -78,7 +87,7 @@ class ConcreteModa_HoraIntervencion(AbstractModa):
     def __init__(self, datos):
             self.datos = datos
     def calcular(self):
-        return self.datos['Hora Intervencion'].mode()
+        return data['Hora Intervencion'].mode()
 
 
 class AbstractMedia(ABC):
@@ -117,9 +126,9 @@ class ConcreteMedia_HoraIntervencion(AbstractMedia):
     def __init__(self, datos):
             self.datos = datos
     def calcular(self):
-        return self.datos['Hora Intervencion'].mode()
+        return self.datos['Hora Intervencion'].mean()
 
-def client_code_mode(factory: AbstractFactory) -> None:
+def client_code_moda(factory: AbstractFactory) -> None:
     moda = factory.moda()
 
     print(f'Moda: {moda.calcular()}')
@@ -173,12 +182,12 @@ if __name__ == "__main__":
     
     
     print("Hora de Solicitud:")
-    client_code_mode(factory_hora_solicitud)
+    client_code_moda(factory_hora_solicitud)
     client_code_media(factory_hora_solicitud)
     print("Mes:")
-    client_code_mode(factory_mes)
+    client_code_moda(factory_mes)
     client_code_media(factory_mes)
     print("Hora Intervencion:")
-    client_code_mode(factory_hora_intervencion)
+    client_code_moda(factory_hora_intervencion)
     client_code_media(factory_hora_intervencion)
    
