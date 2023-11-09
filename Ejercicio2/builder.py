@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-# Interfaz PizzaBuilder
 class PizzaBuilder(ABC):
     @abstractmethod
     def build_tipo_masa(self):
@@ -51,12 +50,16 @@ class PizzaDeliziosoBuilder(PizzaBuilder):
         self.pizza.presentacion = "Estilo clásico"
 
     def build_maridaje_recomendado(self):
-        self.pizza.maridaje_recomendado = "Vino tinto"
+        # Validar el maridaje basado en las selecciones previas
+        if "Prosciutto" in self.pizza.ingredientes_principales:
+            self.pizza.maridaje_recomendado = "Vino tinto"
+        else:
+            self.pizza.maridaje_recomendado = "Maridaje genérico"
 
     def get_pizza(self):
         return self.pizza
 
-# Clase para representar la pizza
+# Clase  para representar la pizza
 class Pizza:
     def __init__(self):
         self.tipo_masa = ""
@@ -79,7 +82,7 @@ class DirectorPizza:
         self.builder.build_presentacion()
         self.builder.build_maridaje_recomendado()
 
-# Uso del patrón Builder
+# Uso del patrón Builder con validación de elecciones
 builder_delizioso = PizzaDeliziosoBuilder()
 director = DirectorPizza(builder_delizioso)
 director.construir_pizza()
