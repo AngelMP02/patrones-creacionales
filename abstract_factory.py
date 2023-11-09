@@ -67,8 +67,8 @@ Concrete Products are created by corresponding Concrete Factories.
 class ConcreteModa_HoraSolicitud(AbstractModa):
     def __init__(self, datos):
             self.datos = datos
-    def useful_function_a(self) -> str:
-        return "The result of the product A1."
+    def calcular(self):
+        return self.datos['Hora Solicitud'].mode()
 
 
 class ConcreteModa_Mes(AbstractModa):
