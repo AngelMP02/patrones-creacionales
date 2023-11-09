@@ -122,34 +122,22 @@ class ConcreteMedia_HoraIntervencion(AbstractMedia):
         return self.datos['Hora Intervencion'].mode()
 
 def client_code_mode(factory: AbstractFactory) -> None:
-    """
-    The client code works with factories and products only through abstract
-    types: AbstractFactory and AbstractProduct. This lets you pass any factory
-    or product subclass to the client code without breaking it.
-    """
-    product_a = factory.create_product_a()
-    product_b = factory.create_product_b()
+    moda = factory.moda()
 
-    print(f"{product_b.useful_function_b()}")
-    print(f"{product_b.another_useful_function_b(product_a)}", end="")
+    print(f'Moda: {moda.calcular()}')
 
 
 def client_code_media(factory: AbstractFactory) -> None:
-    """
-    The client code works with factories and products only through abstract
-    types: AbstractFactory and AbstractProduct. This lets you pass any factory
-    or product subclass to the client code without breaking it.
-    """
-    product_a = factory.create_product_a()
-    product_b = factory.create_product_b()
+    media = factory.media()
+    
+    print(f'Moda: {media.calcular()}')
+   
 
-    print(f"{product_b.useful_function_b()}")
-    print(f"{product_b.another_useful_function_b(product_a)}", end="")
-
+   
 
 if __name__ == "__main__":
     
-data = pd.read_csv('Ejercicio1/activaciones_samur_2022.csv', delimiter = ";")
+data=pd.read_csv('Ejercicio1/activaciones_samur_2022.csv', delimiter = ";")
 
 print(data.info()) 
 print(data.describe())  
