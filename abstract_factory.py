@@ -3,26 +3,32 @@ from abc import ABC, abstractmethod
 
 
 class AbstractFactory(ABC):
-    def __init__(self,datos):   
-        self.datos=datos
-        
+    """
+    The Abstract Factory interface declares a set of methods that return
+    different abstract products. These products are called a family and are
+    related by a high-level theme or concept. Products of one family are usually
+    able to collaborate among themselves. A family of products may have several
+    variants, but the products of one variant are incompatible with products of
+    another.
+    """
     @abstractmethod
-    def moda(self) -> AbstractModa:
+    def create_product_a(self) -> AbstractModa:
         pass
 
     @abstractmethod
-    def medio(self) -> AbstractMedia:
+    def create_product_b(self) -> AbstractMedia:
         pass
 
 
 class ConcreteFactory_HoraSolicitud(AbstractFactory):
-    
+   
+        
 
-    def moda(self) -> AbstractModa:
-        return ConcreteFactory_HoraSolicitud(self.datos)
+    def create_product_a(self) -> AbstractModa:
+        return ConcreteModa_HoraSolicitud(self.datos)
 
-    def media(self) -> AbstractMedia:
-        return ConcreteFactory_HoraSolicitud(self.datos)
+    def create_product_b(self) -> AbstractMedia:
+        return ConcreteMedia_HoraSolicitud(self.datos)
 
 
 class ConcreteFactory_Mes(AbstractFactory):
@@ -30,14 +36,23 @@ class ConcreteFactory_Mes(AbstractFactory):
     Each Concrete Factory has a corresponding product variant.
     """
 
-    def moda(self) -> AbstractModa:
-        return  ConcreteFactory_Mes(self.datos)
+    def create_product_a(self) -> AbstractModa:
+        return ConcreteModa_Mes(self.datos)
 
-    def media(self) ->  AbstractMedia:
-        return  ConcreteFactory_Mes(self.datos)
+    def create_product_b(self) -> AbstractMedia:
+        return ConcreteMedia_Mes(self.datos)
+
+class ConcreteFactory_HoraIntervencion(AbstractFactory):
+  
+
+    def create_product_a(self) -> AbstractModa:
+        return ConcreteModa_HoraIntervencion(self.datos)
+
+    def create_product_b(self) -> AbstractMedia:
+        return ConcreteMedia_HoraIntervencion(self.datos)
 
 
-class AbstractProductA(ABC):
+class AbstractModa(ABC):
     """
     Each distinct product of a product family should have a base interface. All
     variants of the product must implement this interface.
@@ -53,17 +68,20 @@ Concrete Products are created by corresponding Concrete Factories.
 """
 
 
-class ConcreteProductA1(AbstractProductA):
+class ConcreteModa_HoraSolicitud(AbstractModa):
     def useful_function_a(self) -> str:
         return "The result of the product A1."
 
 
-class ConcreteProductA2(AbstractProductA):
+class ConcreteModa_Mes(AbstractModa):
+    def useful_function_a(self) -> str:
+        return "The result of the product A2."
+class ConcreteModa_HoraIntervencion(AbstractModa):
     def useful_function_a(self) -> str:
         return "The result of the product A2."
 
 
-class AbstractProductB(ABC):
+class AbstractMedia(ABC):
     """
     Here's the the base interface of another product. All products can interact
     with each other, but proper interaction is possible only between products of
@@ -92,24 +110,18 @@ Concrete Products are created by corresponding Concrete Factories.
 """
 
 
-class ConcreteProductB1(AbstractProductB):
-    def useful_function_b(self) -> str:
-        return "The result of the product B1."
-
-    """
-    The variant, Product B1, is only able to work correctly with the variant,
-    Product A1. Nevertheless, it accepts any instance of AbstractProductA as an
-    argument.
-    """
+class ConcreteMedia_HoraSolicitud(AbstractMedia):
+     def __init__(self, datos):
+            self.datos = datos
 
     def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
         result = collaborator.useful_function_a()
         return f"The result of the B1 collaborating with the ({result})"
 
 
-class ConcreteProductB2(AbstractProductB):
-    def useful_function_b(self) -> str:
-        return "The result of the product B2."
+class ConcreteMedia_Mes(AbstractMedia):
+    def __init__(self, datos):
+            self.datos = datos
 
     def another_useful_function_b(self, collaborator: AbstractProductA):
         """
@@ -120,8 +132,29 @@ class ConcreteProductB2(AbstractProductB):
         result = collaborator.useful_function_a()
         return f"The result of the B2 collaborating with the ({result})"
 
+class ConcreteMedia_HoraIntervencion(AbstractMedia):
+    def __init__(self, datos):
+            self.datos = datos
 
-def client_code(factory: AbstractFactory) -> None:
+    def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
+        result = collaborator.useful_function_a()
+        return f"The result of the B1 collaborating with the ({result})"
+
+
+def client_code_mode(factory: AbstractFactory) -> None:
+    """
+    The client code works with factories and products only through abstract
+    types: AbstractFactory and AbstractProduct. This lets you pass any factory
+    or product subclass to the client code without breaking it.
+    """
+    product_a = factory.create_product_a()
+    product_b = factory.create_product_b()
+
+    print(f"{product_b.useful_function_b()}")
+    print(f"{product_b.another_useful_function_b(product_a)}", end="")
+
+
+def client_code_media(factory: AbstractFactory) -> None:
     """
     The client code works with factories and products only through abstract
     types: AbstractFactory and AbstractProduct. This lets you pass any factory
