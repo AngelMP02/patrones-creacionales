@@ -133,7 +133,7 @@ if __name__ == "__main__":
     factory_hora_solicitud = ConcreteFactory_HoraSolicitud(data)
     factory_hora_intervencion = ConcreteFactory_HoraIntervencion(data)
     factory_mes = ConcreteFactory_Mes(data)
-
+    
     print("Hora de Solicitud:")
     client_code_mode(factory_hora_solicitud)
     client_code_media(factory_hora_solicitud)
