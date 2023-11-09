@@ -74,13 +74,13 @@ class ConcreteModa_HoraSolicitud(AbstractModa):
 class ConcreteModa_Mes(AbstractModa):
     def __init__(self, datos):
             self.datos = datos
-    def useful_function_a(self) -> str:
-        return "The result of the product A2."
+    def calcular(self):
+        return self.datos['Mes'].mode()
 class ConcreteModa_HoraIntervencion(AbstractModa):
     def __init__(self, datos):
             self.datos = datos
-    def useful_function_a(self) -> str:
-        return "The result of the product A2."
+    def calcular(self):
+        return self.datos['Hora Intervencion'].mode()
 
 
 class AbstractMedia(ABC):
