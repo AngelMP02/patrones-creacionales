@@ -13,7 +13,6 @@ class InterfazPedidoPizza:
         self.director = DirectorPizza(self.builder_delizioso)
 
         self.ingredientes_seleccionados = []
-        self.salsa_seleccionada = ""
         self.bebida_seleccionada = ""
 
         self.create_widgets()
@@ -41,15 +40,6 @@ class InterfazPedidoPizza:
             checkbutton = tk.Checkbutton(ventana_personalizar, text=ingrediente, variable=var)
             checkbutton.pack()
 
-        # Dropdown para seleccionar la salsa
-        tk.Label(ventana_personalizar, text="Seleccione la salsa:").pack(pady=10)
-        opciones_salsa = ["Salsa de Tomate", "Salsa Barbacoa", "Salsa Pesto"]
-        var_salsa = tk.StringVar(ventana_personalizar)
-        var_salsa.set(opciones_salsa[0])  # Valor predeterminado
-
-        dropdown_salsa = tk.OptionMenu(ventana_personalizar, var_salsa, *opciones_salsa)
-        dropdown_salsa.pack()
-
         # Dropdown para seleccionar la bebida
         tk.Label(ventana_personalizar, text="Seleccione la bebida:").pack(pady=10)
         opciones_bebida = ["Coca-Cola", "Pepsi", "Agua", "Jugo"]
@@ -63,20 +53,19 @@ class InterfazPedidoPizza:
         add_button = tk.Button(ventana_personalizar, text="Añadir Ingredientes", command=lambda: self.actualizar_ingredientes(var_ingredientes))
         add_button.pack(pady=5)
 
-        confirmar_button = tk.Button(ventana_personalizar, text="Confirmar", command=lambda: self.confirmar_personalizacion(var_ingredientes, var_salsa, var_bebida, ventana_personalizar))
+        confirmar_button = tk.Button(ventana_personalizar, text="Confirmar", command=lambda: self.confirmar_personalizacion(var_ingredientes, var_bebida, ventana_personalizar))
         confirmar_button.pack(pady=10)
 
     def actualizar_ingredientes(self, var_ingredientes):
         # Actualizar la lista de ingredientes seleccionados
         self.ingredientes_seleccionados = [ingrediente for ingrediente, var in var_ingredientes.items() if var.get() == 1]
 
-    def confirmar_personalizacion(self, var_ingredientes, var_salsa, var_bebida, ventana_personalizar):
+    def confirmar_personalizacion(self, var_ingredientes, var_bebida, ventana_personalizar):
         # Aplicar la personalización a la pizza
         ingredientes_personalizados = self.ingredientes_seleccionados or ["Tomate", "Mozzarella"]  # Ingredientes predeterminados si no se selecciona ninguno
         self.builder_delizioso.build_ingredientes_principales_personalizados(ingredientes_personalizados)
 
-        # Aplicar la elección de salsa y bebida
-        self.builder_delizioso.build_salsa(var_salsa.get())
+        # Aplicar la elección de bebida
         self.builder_delizioso.build_bebida(var_bebida.get())
 
         # Cerrar la ventana de personalización
@@ -106,4 +95,3 @@ class InterfazPedidoPizza:
 if __name__ == "__main__":
     root = tk.Tk()
     app = InterfazPedidoPizza(root)
-    root.mainloop()
