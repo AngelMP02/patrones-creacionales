@@ -13,6 +13,7 @@ class InterfazPedidoPizza:
         self.director = DirectorPizza(self.builder_delizioso)
 
         self.ingredientes_seleccionados = []
+        self.salsa_seleccionada = ""
         self.bebida_seleccionada = ""
 
         self.create_widgets()
@@ -40,6 +41,7 @@ class InterfazPedidoPizza:
             checkbutton = tk.Checkbutton(ventana_personalizar, text=ingrediente, variable=var)
             checkbutton.pack()
 
+        
         # Dropdown para seleccionar la bebida
         tk.Label(ventana_personalizar, text="Seleccione la bebida:").pack(pady=10)
         opciones_bebida = ["Coca-Cola", "Pepsi", "Agua", "Jugo"]
@@ -65,7 +67,8 @@ class InterfazPedidoPizza:
         ingredientes_personalizados = self.ingredientes_seleccionados or ["Tomate", "Mozzarella"]  # Ingredientes predeterminados si no se selecciona ninguno
         self.builder_delizioso.build_ingredientes_principales_personalizados(ingredientes_personalizados)
 
-        # Aplicar la elección de bebida
+        # Aplicar la elección de  bebida
+       
         self.builder_delizioso.build_bebida(var_bebida.get())
 
         # Cerrar la ventana de personalización
@@ -95,3 +98,4 @@ class InterfazPedidoPizza:
 if __name__ == "__main__":
     root = tk.Tk()
     app = InterfazPedidoPizza(root)
+    root.mainloop()

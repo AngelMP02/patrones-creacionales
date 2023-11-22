@@ -1,4 +1,3 @@
- # pizza_deliciosa_builder.py
 from pizza_builder import PizzaBuilder
 from pizza import Pizza
 
@@ -10,10 +9,18 @@ class PizzaDeliziosoBuilder(PizzaBuilder):
         self.pizza.tipo_masa = "Masa delgada premium"
 
     def build_salsa(self):
-        self.pizza.salsa = "Salsa de autor"
+        # Se agregó la personalización de la salsa
+        if hasattr(self, 'salsa_personalizada'):
+            self.pizza.salsa = self.salsa_personalizada
+        else:
+            self.pizza.salsa = "Salsa de autor"
 
     def build_ingredientes_principales(self):
-        self.pizza.ingredientes_principales = ["Tomate", "Mozzarella", "Prosciutto"]
+        # Se agregó la personalización de los ingredientes principales
+        if hasattr(self, 'ingredientes_principales_personalizados'):
+            self.pizza.ingredientes_principales = self.ingredientes_principales_personalizados
+        else:
+            self.pizza.ingredientes_principales = ["Tomate", "Mozzarella", "Prosciutto"]
 
     def build_tecnicas_coccion(self):
         self.pizza.tecnicas_coccion = "Horno tradicional"
@@ -27,5 +34,14 @@ class PizzaDeliziosoBuilder(PizzaBuilder):
         else:
             self.pizza.maridaje_recomendado = "Maridaje genérico"
 
+    def build_bebida(self, bebida):
+        self.pizza.bebida = bebida  # Método para construir la bebida
+
     def get_pizza(self):
         return self.pizza
+
+    def build_salsa_personalizada(self, salsa):
+        self.salsa_personalizada = salsa
+
+    def build_ingredientes_principales_personalizados(self, ingredientes):
+        self.ingredientes_principales_personalizados = ingredientes
